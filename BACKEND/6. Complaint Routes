@@ -1,0 +1,30 @@
+const router = require("express").Router();
+const Complaint = require("../models/Complaint");
+const auth = require("../middleware/auth");
+
+// Create complaint
+router.post("/", auth, async (req,res)=>{
+  const complaint = await Complaint.create({
+    ...req.body,
+    userId: req.user.id
+  });
+  res.json(complaint);
+});
+
+// Get user complaints
+router.get("/", auth, async (req,res)=>{
+  const data = await Complaint.find({userId:req.user.id});
+  res.json(data);
+});
+
+// Update status (Agent/Admin)
+router.put("/:id", auth, async (req,res)=>{
+  const updated = await Complaint.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {new:true}
+  );
+  res.json(updated);
+});
+
+module.exports = router;
