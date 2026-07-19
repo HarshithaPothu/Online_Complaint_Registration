@@ -1,0 +1,39 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+export default function Dashboard(){
+  const [complaints,setComplaints] = useState([]);
+  const [title,setTitle] = useState("");
+
+  const token = localStorage.getItem("token");
+
+  const fetchData = async ()=>{
+    const res = await axios.get("http://localhost:5000/api/complaints",{
+      headers:{Authorization:token}
+    });
+    setComplaints(res.data);
+  };
+
+  const addComplaint = async ()=>{
+    await axios.post("http://localhost:5000/api/complaints",
+      {title},
+      {headers:{Authorization:token}}
+    );
+    fetchData();
+  };
+
+  useEffect(()=>{fetchData()},[]);
+
+  return (
+    <div>
+      <h2>Dashboard</h2>
+
+      <input onChange={e=>setTitle(e.target.value)} placeholder="Complaint"/>
+      <button onClick={addComplaint}>Submit</button>
+
+      {complaints.map(c=>(
+        <p key={c._id}>{c.title} - {c.status}</p>
+      ))}
+    </div>
+  );
+}
