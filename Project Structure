@@ -1,0 +1,29 @@
+complaint-system/
+│
+├── backend/
+│   ├── config/
+│   │   └── db.js
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Complaint.js
+│   │   └── Feedback.js
+│   ├── middleware/
+│   │   ├── auth.js
+│   │   └── role.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── complaintRoutes.js
+│   │   └── adminRoutes.js
+│   ├── controllers/
+│   ├── server.js
+│   └── .env
+│
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── App.js
+│   │   └── index.js
+│
+└── package.json
